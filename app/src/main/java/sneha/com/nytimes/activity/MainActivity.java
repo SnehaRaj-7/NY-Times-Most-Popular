@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SwipeRefreshLayout swipeNewsList;
     private RecyclerView recyclerListNews;
+    private LinearLayout linearProgressBar;
     private LinearLayoutManager layoutManager;
     private NewsListAdapter newsListAdapter;
     private ArrayList<Result> results;
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        linearProgressBar=findViewById(R.id.linearProgressBar);
         swipeNewsList = findViewById(R.id.swipeNewsList);
         recyclerListNews = findViewById(R.id.recyclerListNews);
 
@@ -53,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         mostPopularResponseCall.enqueue(new Callback<MostPopularResponse>() {
             @Override
             public void onResponse(Call<MostPopularResponse> call, Response<MostPopularResponse> response) {
+                linearProgressBar.setVisibility(View.GONE);
+                swipeNewsList.setVisibility(View.VISIBLE);
                 swipeNewsList.setRefreshing(false);
                 if (response != null) {
                     results = response.body().getResults();
@@ -67,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<MostPopularResponse> call, Throwable t) {
                 t.printStackTrace();
+                linearProgressBar.setVisibility(View.GONE);
             }
         });
     }
