@@ -22,5 +22,7 @@ public class DetailActivity extends AppCompatActivity {
 
         webViewDescription = findViewById(R.id.webViewDescription);
         webViewDescription.loadUrl(result.getUrl());
+
     }
+    
 }

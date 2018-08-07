@@ -36,11 +36,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        linearProgressBar=findViewById(R.id.linearProgressBar);
+        linearProgressBar = findViewById(R.id.linearProgressBar);
         swipeNewsList = findViewById(R.id.swipeNewsList);
         recyclerListNews = findViewById(R.id.recyclerListNews);
-
+        swipeNewsList.setColorSchemeResources(R.color.colorAccent);
         CallApi();
+
         swipeNewsList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
